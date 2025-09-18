@@ -1,11 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Space_Invaders_V_1
 {
@@ -14,23 +9,39 @@ namespace Space_Invaders_V_1
         public Texture2D bulletTex;
         public Vector2 bulletPos;
         public float bulletSpeed;
+        const float _bulletSpeed = 10f;
         public bool isVisible;
         public Rectangle bulletRect;
-
         
-
-        public Bullet(Texture2D bulletTex, Vector2 bulletPos, float bulletSpeed) 
+        public Bullet(Texture2D bulletTex, Vector2 bulletPos) 
         {
             this.bulletTex = bulletTex;
             this.bulletPos = bulletPos;
-            this.bulletSpeed = bulletSpeed;
+            bulletSpeed = _bulletSpeed;
+
+            isVisible = true;
+
+            bulletRect = new Rectangle((int)bulletPos.X, (int)bulletPos.Y, bulletTex.Width, bulletTex.Height);
         }
 
-        //public void Update();
+        public bool IsOffScreen(int windowHeight)
+        {
+            return bulletPos.Y < 0;
+        }
 
+        public void Update() 
+        {
+            bulletPos.Y -= bulletSpeed;
 
+            bulletRect.Location = bulletPos.ToPoint();
 
-        //public void Draw(SpriteBatch spritebatch;)
+            if (bulletPos.Y < 0) isVisible = false;
+        }
+
+        public void Draw(SpriteBatch spritebatch)
+        {
+            if (isVisible) spritebatch.Draw(bulletTex, bulletPos, Color.Red);
+        }
 
     }
 }

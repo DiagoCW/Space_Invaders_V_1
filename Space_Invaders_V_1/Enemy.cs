@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Space_Invaders_V_1
 {
@@ -16,13 +11,15 @@ namespace Space_Invaders_V_1
         public bool enemyAlive;
         public Color color;
         public Vector2 enemySpeed;
+        const float _enemySpeed = 2;
 
         public Enemy(Texture2D enemyTex, Vector2 enemyPos, Color color) 
         {
             this.enemyTex = enemyTex;
             this.enemyPos = enemyPos;
-            this.enemySpeed = new Vector2(0, 2);
+            enemySpeed = new Vector2(0, _enemySpeed);
             this.color = color;
+            enemyAlive = true;
 
             enemyRect = new Rectangle ((int)enemyPos.X, (int)enemyPos.Y, enemyTex.Width, enemyTex.Height);
         }
@@ -32,12 +29,12 @@ namespace Space_Invaders_V_1
             enemyPos += enemySpeed;
 
             enemyRect.Location = enemyPos.ToPoint();
-
         }
 
         public void Draw(SpriteBatch spritebatch) 
         {
-            spritebatch.Draw(enemyTex, enemyPos, color);
+            if (enemyAlive) spritebatch.Draw(enemyTex, enemyPos, color);
+            
         }
     }
 }
