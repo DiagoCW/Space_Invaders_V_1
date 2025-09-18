@@ -23,7 +23,7 @@ namespace Space_Invaders_V_1
         Texture2D enemyTex;
         Rectangle enemyRect;
 
-        Bullet bullet;
+        List<Bullet> bullets;
         Texture2D bulletTex;
 
         public Game1()
